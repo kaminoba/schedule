@@ -4,6 +4,7 @@
 			<li v-for="(row, index) in itemList" v-bind:key="index">
 				<label>{{ row.datetime }}：{{ row.content }}</label>
 				<button @click="deleteItem(index)">Delete</button>
+				<router-link :to="'/edit/${index}'">Edit</router-link>
 			</li>
 		</ul>
 	</div>
@@ -16,7 +17,7 @@
 				itemList:[]
 			}
 		},
-		mounted(){
+		created(){
 			this.axios.get('https://api.example.com/list')
 				.then(response => {
 					this.itemList = response.data;
@@ -25,9 +26,7 @@
 		},
 		methods: {
 			deleteItem(index){
-				this.axios.post('https://api.example.com/delete',{
-					id: index
-				})
+				this.axios.delete('https://api.example.com/delete/'+this.$route.params.id)
 				.then(response => {
 					console.log(response)
 					this.itemList.splice(index, 1)
