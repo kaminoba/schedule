@@ -26,7 +26,7 @@
 		},
 		methods: {
 			deleteItem(index){
-				this.axios.delete('https://api.example.com/delete/'+this.$route.params.id)
+				this.axios.delete('https://api.example.com/delete/'+index)
 				.then(response => {
 					console.log(response)
 					this.itemList.splice(index, 1)
